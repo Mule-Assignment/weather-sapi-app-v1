@@ -39,7 +39,7 @@
             </ee:variables>
         </ee:transform>
 		<logger level="INFO" doc:name="Request Logger for weather sapi for Postal Code" doc:id="40516d35-5786-44c5-a51f-97355263bf9d" message="Request Logger for weather sapi for Postal Code"/>
-        <flow-ref doc:name="Flow Reference to Call postal" doc:id="3bf4bdb4-a5c1-4e7a-b290-8d80f6aab76a" name="postal-implementationSub_Flow"/>
+        <flow-ref doc:name="Flow Reference to Call Postal" doc:id="3bf4bdb4-a5c1-4e7a-b290-8d80f6aab76a" name="postal-implementationSub_Flow"/>
 		
         		<logger level="INFO" doc:name="Response Logger for weather sapi for Postal Code" doc:id="cfafef7f-641b-45b2-9ba9-4581921b213a" message="Response Logger for weather sapi for Postal Code"/>
 		<error-handler ref="global-app-error_Handler" />
@@ -86,7 +86,7 @@
         </ee:transform>
         <logger level="INFO" doc:name="Request Logger for weather sapi for Weather" doc:id="63ab943c-561b-45d3-bdbe-28539f47a077" message="Request Logger for weather sapi for Weather"/>
         
-		<flow-ref doc:name="Flow Reference to call weather" doc:id="cd9f5902-30d3-46db-a4e6-ddf02bec123f" name="weather-implementationSub_Flow"/>
+		<flow-ref doc:name="Flow Reference to Call Weather" doc:id="cd9f5902-30d3-46db-a4e6-ddf02bec123f" name="weather-implementationSub_Flow"/>
 		<logger level="INFO" doc:name="Response Logger for weather sapi for Weather " doc:id="db7bc725-0ea1-44e6-be80-fe0d348ace6c" message="Response Logger for weather sapi for Weather "/>
 		
 		<error-handler ref="global-app-error_Handler" />
