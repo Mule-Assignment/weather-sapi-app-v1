@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	
+	
+	<sub-flow name="weather-implementationSub_Flow" doc:id="6c81e3f1-900e-4722-bb20-849d1936244e" >
+		<logger level="INFO" doc:name="Request Logger for Ip api" doc:id="6b93c334-ba75-4fab-a747-c6cf88d74d27" message="Request for Ip api"/>
+		<http:request method="GET" doc:name="Requester calling Ip api" doc:id="b714c80c-2aaf-412d-9adb-4e190dca3753" config-ref="HTTP_Request_configuration_weather" path="${weather.weatherPath}">
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"Key" : p('weather.key')
+}]]]></http:headers>
+			<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"q" : vars.postalCode,
+	"days" : p('weather.days')
+}]]]></http:query-params>
+		</http:request>
+		<ee:transform>
+            <ee:message>
+                <ee:set-payload><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"currentTemperature" : payload.current.temp_c,
+	"lowTemperature" : payload.forecast.forecastday[0].day.maxtemp_c,
+	"highTemperature" : payload.forecast.forecastday[0].day.mintemp_c,
+	"currentOutlook": payload.current.condition.text
+	
+}]]></ee:set-payload>
+            </ee:message>
+        </ee:transform>
+		<logger level="INFO" doc:name="Response Logger" doc:id="252635f9-6a65-4f61-810f-280942a55732" message="implementation flow ended"/>
+		
+	</sub-flow>
+</mule>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mule xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd ">
+    
+    
+    <flow name="weather-sapi-api-main">
+        
+        <http:listener config-ref="weather-sapi-api-httpListenerConfig" path="/api/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body>#[payload]</http:body>
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:router config-ref="weather-sapi-api-config" />
+        <error-handler ref="global-apikit-error_Handler">
+                    </error-handler>
+    </flow>
+    <flow name="weather-sapi-api-console">
+        <http:listener config-ref="weather-sapi-api-httpListenerConfig" path="/console/*">
+            <http:response statusCode="#[vars.httpStatus default 200]">
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:response>
+            <http:error-response statusCode="#[vars.httpStatus default 500]">
+                <http:body>#[payload]</http:body>
+                <http:headers>#[vars.outboundHeaders default {}]</http:headers>
+            </http:error-response>
+        </http:listener>
+        <apikit:console config-ref="weather-sapi-api-config" />
+		<error-handler ref="global-apikit-error_Handler" />
+    </flow>
+    <flow name="get:\postal\(ipAddress):weather-sapi-api-config" doc:id="ae1a9d3c-7e6d-42bf-93c1-7acb0b74efa1">
+		<logger level="INFO" doc:name="Request Logger for weather sapi" doc:id="40516d35-5786-44c5-a51f-97355263bf9d" message="Request is started for weather sapi"/>
+		<ee:transform>
+            <ee:variables>
+                <ee:set-variable variableName="ipAddress"><![CDATA[attributes.uriParams.'ipAddress']]></ee:set-variable>
+				<ee:set-variable variableName="authorization" ><![CDATA[attributes.headers.'authorization']]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <flow-ref doc:name="Flow Reference" doc:id="3bf4bdb4-a5c1-4e7a-b290-8d80f6aab76a" name="postal-implementationSub_Flow"/>
+		
+        		<logger level="INFO" doc:name="End Logger" doc:id="cfafef7f-641b-45b2-9ba9-4581921b213a" message="weather sapi api ended"/>
+		<error-handler ref="global-app-error_Handler" />
+    </flow>
+    <flow name="get:\fileList:weather-sapi-api-config" doc:id="685d3bd9-2846-4231-9a98-40c388e4005b">
+		<ee:transform>
+            <ee:variables>
+                <ee:set-variable variableName="ipAddress"><![CDATA[attributes.uriParams.'ipAddress']]></ee:set-variable>
+				<ee:set-variable variableName="authorization"><![CDATA[attributes.headers.'authorization']]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="9bf414b2-5ce5-4f1f-9042-339a2c07bce5" name="fileList-implementationSub_Flow"/>
+    </flow>
+    <flow name="get:\fileContent\(fileId):weather-sapi-api-config" doc:id="36bd5277-c137-438d-b608-51a97d44c4ab">
+		<ee:transform>
+            <ee:variables>
+				<ee:set-variable variableName="authorization"><![CDATA[attributes.headers.'authorization']]></ee:set-variable>
+				<ee:set-variable variableName="fileId" ><![CDATA[attributes.uriParams.'fileId']]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="2647c785-f18e-4247-8802-49bd73a00be4" name="fileContent-implementationSub_Flow"/>
+    </flow>
+     <flow name="get:\weather:weather-sapi-api-config" doc:id="ad21260b-3aa5-439e-800b-4e334c366a6c">
+		<ee:transform doc:id="3d1eb7be-5891-45bc-8e88-24250c52a6a8">
+            <ee:variables>
+				<ee:set-variable variableName="postalCode"><![CDATA[attributes.queryParams.'postalCode']]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+		<flow-ref doc:name="Flow Reference" doc:id="cd9f5902-30d3-46db-a4e6-ddf02bec123f" name="weather-implementationSub_Flow"/>
+    </flow>
+    
+</mule>

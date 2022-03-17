@@ -1,0 +1,12 @@
+{
+  "ip": "8.8.8.8",
+  "version": "IPv4",
+  "city": "Mountain View",
+  "region": "California",
+  "country": "US",
+  "postal": 94043,
+  "latitude": 37.42301,
+  "longitude": -122.083352,
+  "timezone": "America/Los_Angeles",
+  "languages": "en-US,es-US,haw,fr"
+}

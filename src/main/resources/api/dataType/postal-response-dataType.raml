@@ -1,0 +1,44 @@
+#%RAML 1.0 DataType
+
+type: object
+properties:
+  ip:
+    type: string
+    required: true
+    example: "8.8.8.8"
+  version:
+    type: string
+    required: true
+    example: "IPv4"
+  city:
+    type: string
+    required: true
+    example: "Mountain View"
+  region:
+    type: string
+    required: true
+    example: "California"
+  country:
+    type: string
+    required: true
+    example: "US"
+  postal:
+    type: integer
+    required: true
+    example: 94043
+  latitude:
+    type: number
+    required: true
+    example: 37.42301
+  longitude:
+    type: number
+    required: true
+    example: -122.083352
+  timezone:
+    type: string
+    required: true
+    example: "America/Los_Angeles"
+  languages:
+    type: string
+    required: true
+    example: "en-US,es-US,haw,fr"
