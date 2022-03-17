@@ -9,7 +9,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	
 	
 	<sub-flow name="postal-implementationSub_Flow" doc:id="6c81e3f1-900e-4722-bb20-849d1936244e" >
-		<logger level="INFO" doc:name="Request Logger for Ip api" doc:id="6b93c334-ba75-4fab-a747-c6cf88d74d27" message="Request for Ip api"/>
+		<logger level="INFO" doc:name="Request Logger for Postal API" doc:id="6b93c334-ba75-4fab-a747-c6cf88d74d27" message="Request for Ip api"/>
 		<http:request method="GET" doc:name="Requester calling Ip api" doc:id="b714c80c-2aaf-412d-9adb-4e190dca3753" config-ref="HTTP_Request_configuration_postal" path="${postal.postalpath}">
 			<http:uri-params ><![CDATA[#[output application/java
 ---
@@ -17,7 +17,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	"ipAddress" : attributes.uriParams.ipAddress
 }]]]></http:uri-params>
 		</http:request>
-		<ee:transform doc:name="Response from Ip api" doc:id="0afa9bf7-8579-4a10-945c-4263a42bc786" >
+		<ee:transform doc:name="Response from Postal API" doc:id="0afa9bf7-8579-4a10-945c-4263a42bc786" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
@@ -25,7 +25,7 @@ output application/json
 payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<ee:transform>
+		<ee:transform doc:name="Transform Message to Convert Postal Code">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json
@@ -44,7 +44,7 @@ output application/json
 }]]></ee:set-payload>
             </ee:message>
         </ee:transform>
-		<logger level="INFO" doc:name="Response Logger" doc:id="252635f9-6a65-4f61-810f-280942a55732" message="implementation flow ended"/>
+		<logger level="INFO" doc:name="Response Logger for Postal API" doc:id="252635f9-6a65-4f61-810f-280942a55732" message="implementation flow ended"/>
 		
 	</sub-flow>
 </mule>

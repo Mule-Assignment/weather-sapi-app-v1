@@ -12,10 +12,20 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
                         <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{message: "Bad request"}]]></ee:set-payload>
+{
+  "msg": "failed operation",
+  "code": 400,
+  "success": false,
+  "eventId": "hdsfhjdh-jxbv859-sjdf7643-3746bbd458",
+  "error": {
+    "type": "BAD_REQUEST",
+    "title": "Invalid Request",
+    "details": "The input contains invalid data"
+  }
+}]]></ee:set-payload>
                     </ee:message>
                     <ee:variables>
-                        <ee:set-variable variableName="httpStatus">400</ee:set-variable>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[400]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
             </on-error-propagate>
@@ -25,10 +35,20 @@ output application/json
                         <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{message: "Resource not found"}]]></ee:set-payload>
+{
+  "msg": "failed operation",
+  "code": 404,
+  "success": false,
+  "eventId": "hdsfhjdh-jxbv859-sjdf7643-3746bbd458",
+  "error": {
+    "type": "NOT_FOUND",
+    "title": "Resource not found",
+    "details": "The URI requested is invalid or the resource requested does not exists"
+  }
+}]]></ee:set-payload>
                     </ee:message>
                     <ee:variables>
-                        <ee:set-variable variableName="httpStatus">404</ee:set-variable>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[404]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
             </on-error-propagate>
@@ -38,10 +58,21 @@ output application/json
                         <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{message: "Method not allowed"}]]></ee:set-payload>
+{
+  "msg": "failed operation",
+  "code": 405,
+  "success": false,
+  "eventId": "hdsfhjdh-jxbv859-sjdf7643-3746bbd458",
+  "error": {
+    "type": "Method not allowed",
+    "title": "Method not allowed",
+    "details": "The URI requested is invalid or Method not allowed"
+  }
+}
+]]></ee:set-payload>
                     </ee:message>
                     <ee:variables>
-                        <ee:set-variable variableName="httpStatus">405</ee:set-variable>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[405]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
             </on-error-propagate>
@@ -51,10 +82,21 @@ output application/json
                         <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{message: "Not acceptable"}]]></ee:set-payload>
+{
+  "msg": "failed operation",
+  "code": 406,
+  "success": false,
+  "eventId": "hdsfhjdh-jxbv859-sjdf7643-3746bbd458",
+  "error": {
+    "type": "Not Acceptable",
+    "title": "Not Acceptable",
+    "details": "The URI requested is invalid or Not Acceptable"
+  }
+}
+]]></ee:set-payload>
                     </ee:message>
                     <ee:variables>
-                        <ee:set-variable variableName="httpStatus">406</ee:set-variable>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[406]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
             </on-error-propagate>
@@ -64,10 +106,20 @@ output application/json
                         <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{message: "Unsupported media type"}]]></ee:set-payload>
+{
+  "msg": "failed operation",
+  "code": 406,
+  "success": false,
+  "eventId": "hdsfhjdh-jxbv859-sjdf7643-3746bbd458",
+  "error": {
+    "type": "Unsupported_Media_Type",
+    "title": "Unsupported media type",
+    "details": "The URI requested is invalid or Unsupported media type"
+  }
+}]]></ee:set-payload>
                     </ee:message>
                     <ee:variables>
-                        <ee:set-variable variableName="httpStatus">415</ee:set-variable>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[415]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
             </on-error-propagate>
@@ -77,10 +129,20 @@ output application/json
                         <ee:set-payload><![CDATA[%dw 2.0
 output application/json
 ---
-{message: "Not Implemented"}]]></ee:set-payload>
+{
+  "msg": "failed operation",
+  "code": 501,
+  "success": false,
+  "eventId": "hdsfhjdh-jxbv859-sjdf7643-3746bbd458",
+  "error": {
+    "type": "Not_Implemented",
+    "title": "Not Implemented",
+    "details": "The URI requested is invalid or Not Implemented"
+  }
+}]]></ee:set-payload>
                     </ee:message>
                     <ee:variables>
-                        <ee:set-variable variableName="httpStatus">501</ee:set-variable>
+                        <ee:set-variable variableName="httpStatus"><![CDATA[501]]></ee:set-variable>
                     </ee:variables>
                 </ee:transform>
             </on-error-propagate>
@@ -93,14 +155,22 @@ output application/json
 output application/java
 ---
 {
-	"message":error.errorMessage
+  "msg": "failed operation",
+  "code": 501,
+  "success": false,
+  "eventId": "hdsfhjdh-jxbv859-sjdf7643-3746bbd458",
+  "error": {
+    "type": error.errorType,
+    "title": error.description,
+    "details": error.errorMessage[0 to 20]
+  }
 }]]></ee:set-payload>
 				</ee:message>
 				<ee:variables >
 					<ee:set-variable variableName="httpStatus" ><![CDATA[500]]></ee:set-variable>
 				</ee:variables>
 			</ee:transform>
-			<logger level="INFO" doc:name="Error Logger" doc:id="43a5c0db-f67e-4ad9-b957-983a76fa9eb3" message="default error"/>
+			<logger level="INFO" doc:name="Error Logger for Weather SAPI" doc:id="43a5c0db-f67e-4ad9-b957-983a76fa9eb3" message="default error"/>
 		</on-error-propagate>
 	</error-handler>
 	

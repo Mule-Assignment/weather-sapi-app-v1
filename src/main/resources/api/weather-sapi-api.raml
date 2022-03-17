@@ -103,6 +103,41 @@ version: 1.0.0
             application/json:
               type: !include /exchange_modules/eb8c1062-8544-4cfa-a0c6-c3fc5c1c249d/common-fragment/1.0.0/dataType/common-error-dataType.raml
               example: !include /exchange_modules/eb8c1062-8544-4cfa-a0c6-c3fc5c1c249d/common-fragment/1.0.0/examples/common-error-500-example.json      
+    post:
+      queryParameters:
+        alt:
+          description: it defines the media
+          type: string
+          required: true
+      headers:
+        authorization:   
+          type: string
+          required: true
+      responses: 
+        200:
+          body:
+            image/csv:
+              type: file
+        400:
+          body:
+            application/json:
+              type: !include /exchange_modules/eb8c1062-8544-4cfa-a0c6-c3fc5c1c249d/common-fragment/1.0.0/dataType/common-error-dataType.raml
+              example: !include /exchange_modules/eb8c1062-8544-4cfa-a0c6-c3fc5c1c249d/common-fragment/1.0.0/examples/common-error-400-example.json
+        401:
+          body:
+            application/json:
+              type: !include /exchange_modules/eb8c1062-8544-4cfa-a0c6-c3fc5c1c249d/common-fragment/1.0.0/dataType/common-error-dataType.raml
+              example: !include /exchange_modules/eb8c1062-8544-4cfa-a0c6-c3fc5c1c249d/common-fragment/1.0.0/examples/common-error-401-example.json     
+        404:
+          body:
+            application/json:
+              type: !include /exchange_modules/eb8c1062-8544-4cfa-a0c6-c3fc5c1c249d/common-fragment/1.0.0/dataType/common-error-dataType.raml
+              example: !include /exchange_modules/eb8c1062-8544-4cfa-a0c6-c3fc5c1c249d/common-fragment/1.0.0/examples/common-error-404-example.json       
+        500:
+          body:
+            application/json:
+              type: !include /exchange_modules/eb8c1062-8544-4cfa-a0c6-c3fc5c1c249d/common-fragment/1.0.0/dataType/common-error-dataType.raml
+              example: !include /exchange_modules/eb8c1062-8544-4cfa-a0c6-c3fc5c1c249d/common-fragment/1.0.0/examples/common-error-500-example.json      
 
 /weather:
   get:
