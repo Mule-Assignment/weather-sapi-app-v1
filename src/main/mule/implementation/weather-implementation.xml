@@ -9,7 +9,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	
 	
 	<sub-flow name="weather-implementationSub_Flow" doc:id="6c81e3f1-900e-4722-bb20-849d1936244e" >
-		<logger level="INFO" doc:name="Request Logger for Weather" doc:id="6b93c334-ba75-4fab-a747-c6cf88d74d27" message="Request for Ip api"/>
+		<logger level="INFO" doc:name="Request Logger for Weather" doc:id="6b93c334-ba75-4fab-a747-c6cf88d74d27" message="Request for Weather API  and for Transaction ID: #[vars.transactionId]"/>
 		<http:request method="GET" doc:name="Requester calling to get weather" doc:id="b714c80c-2aaf-412d-9adb-4e190dca3753" config-ref="HTTP_Request_configuration_weather" path="${weather.weatherPath}">
 			<http:headers ><![CDATA[#[output application/java
 ---
@@ -23,6 +23,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	"days" : p('weather.days')
 }]]]></http:query-params>
 		</http:request>
+		<logger level="INFO" doc:name="Response Logger for Weather" doc:id="252635f9-6a65-4f61-810f-280942a55732" message="Response from Weather API  and for Transaction ID: #[vars.transactionId]" />
 		<ee:transform>
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
@@ -37,7 +38,6 @@ output application/json
 }]]></ee:set-payload>
             </ee:message>
         </ee:transform>
-		<logger level="INFO" doc:name="Response Logger for Weather" doc:id="252635f9-6a65-4f61-810f-280942a55732" message="implementation flow ended"/>
 		
 	</sub-flow>
 </mule>

@@ -10,7 +10,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	
 	
 	<sub-flow name="fileList-implementationSub_Flow" doc:id="6c81e3f1-900e-4722-bb20-849d1936244e" >
-		<logger level="INFO" doc:name="Request Logger for File List" doc:id="6b93c334-ba75-4fab-a747-c6cf88d74d27" message="Request for Ip api"/>
+		<logger level="INFO" doc:name="Request Logger for File List" doc:id="6b93c334-ba75-4fab-a747-c6cf88d74d27" message="Request for FileList API  and for Transaction ID: #[vars.transactionId]"/>
 		<http:request method="GET" doc:name="Requester calling fileList api" doc:id="b714c80c-2aaf-412d-9adb-4e190dca3753" config-ref="HTTP_Request_configuration-fileList" path="${fileList.fileListpath}">
 			<http:headers ><![CDATA[#[output application/json
 ---
@@ -18,6 +18,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 	"authorization" : attributes.headers.'authorization'
 }]]]></http:headers>
 		</http:request>
+		<logger level="INFO" doc:name="Response Logger for File List" doc:id="252635f9-6a65-4f61-810f-280942a55732" message="Response from FileList  and for Transaction ID: #[vars.transactionId]" />
 		<ee:transform doc:name="Response from Ip api" doc:id="0afa9bf7-8579-4a10-945c-4263a42bc786" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
@@ -26,7 +27,6 @@ output application/json
 payload]]></ee:set-payload>
 			</ee:message>
 		</ee:transform>
-		<logger level="INFO" doc:name="Response Logger for File List" doc:id="252635f9-6a65-4f61-810f-280942a55732" message="implementation flow ended"/>
 		
 	</sub-flow>
 </mule>

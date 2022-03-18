@@ -38,10 +38,10 @@
 				<ee:set-variable variableName="transactionId" ><![CDATA[attributes.headers.'transactionId']]></ee:set-variable>
             </ee:variables>
         </ee:transform>
-		<logger level="INFO" doc:name="Request Logger for weather sapi for Postal Code" doc:id="40516d35-5786-44c5-a51f-97355263bf9d" message="Request Logger for weather sapi for Postal Code"/>
+		<logger level="INFO" doc:name="Request Logger for weather sapi for Postal Code" doc:id="40516d35-5786-44c5-a51f-97355263bf9d" message="Request Logger for weather sapi for Postal Code and for Transaction ID: #[vars.transactionId]"/>
         <flow-ref doc:name="Flow Reference to Call Postal" doc:id="3bf4bdb4-a5c1-4e7a-b290-8d80f6aab76a" name="postal-implementationSub_Flow"/>
 		
-        		<logger level="INFO" doc:name="Response Logger for weather sapi for Postal Code" doc:id="cfafef7f-641b-45b2-9ba9-4581921b213a" message="Response Logger for weather sapi for Postal Code"/>
+        		<logger level="INFO" doc:name="Response Logger for weather sapi for Postal Code" doc:id="cfafef7f-641b-45b2-9ba9-4581921b213a" message="Response Logger for weather sapi for Postal Code  and for Transaction ID: #[vars.transactionId]"/>
 		<error-handler ref="global-app-error_Handler" />
     </flow>
     <flow name="get:\fileList:weather-sapi-api-config" doc:id="685d3bd9-2846-4231-9a98-40c388e4005b">
@@ -53,10 +53,10 @@
             
             </ee:variables>
         </ee:transform>
-        <logger level="INFO" doc:name="Request Logger for weather sapi for File List" doc:id="e933b978-cd83-4ffa-816e-df339131db6b" message="Request Logger for weather sapi for File List"/>
+        <logger level="INFO" doc:name="Request Logger for weather sapi for File List" doc:id="e933b978-cd83-4ffa-816e-df339131db6b" message="Request Logger for weather sapi for File List  and for Transaction ID: #[vars.transactionId]"/>
         
 		<flow-ref doc:name="Flow Reference FileList" doc:id="9bf414b2-5ce5-4f1f-9042-339a2c07bce5" name="fileList-implementationSub_Flow"/>
-		<logger level="INFO" doc:name="Response Logger for weather sapi for File List" doc:id="fc127dee-11c6-4693-9889-3d735978bc54" message="Response Logger for weather sapi for File List"/>
+		<logger level="INFO" doc:name="Response Logger for weather sapi for File List" doc:id="fc127dee-11c6-4693-9889-3d735978bc54" message="Response Logger for weather sapi for File List  and for Transaction ID: #[vars.transactionId]"/>
 		
 		<error-handler ref="global-app-error_Handler" />
     </flow>
@@ -69,10 +69,10 @@
             
             </ee:variables>
         </ee:transform>
-        <logger level="INFO" doc:name="Request Logger for weather sapi for File Content" doc:id="7369e6d9-b44e-4307-bf21-618f510f11eb" message="Request Logger for weather sapi for File Content"/>
+        <logger level="INFO" doc:name="Request Logger for weather sapi for File Content" doc:id="7369e6d9-b44e-4307-bf21-618f510f11eb" message="Request Logger for weather sapi for File Content  and for Transaction ID: #[vars.transactionId]"/>
         
 		<flow-ref doc:name="Flow Reference Field Content" doc:id="2647c785-f18e-4247-8802-49bd73a00be4" name="fileContent-implementationSub_Flow"/>
-		<logger level="INFO" doc:name="Reponse Logger for weather sapi for File Content" doc:id="1cc8b717-a346-4207-bc65-86982cbcf5ab" message="Reponse Logger for weather sapi for File Content"/>
+		<logger level="INFO" doc:name="Reponse Logger for weather sapi for File Content" doc:id="1cc8b717-a346-4207-bc65-86982cbcf5ab" message="Reponse Logger for weather sapi for File Content  and for Transaction ID: #[vars.transactionId]"/>
 		
 		<error-handler ref="global-app-error_Handler" />
     </flow>
@@ -84,10 +84,10 @@
             
             </ee:variables>
         </ee:transform>
-        <logger level="INFO" doc:name="Request Logger for weather sapi for Weather" doc:id="63ab943c-561b-45d3-bdbe-28539f47a077" message="Request Logger for weather sapi for Weather"/>
+        <logger level="INFO" doc:name="Request Logger for weather sapi for Weather" doc:id="63ab943c-561b-45d3-bdbe-28539f47a077" message="Request Logger for weather sapi for Weather  and for Transaction ID: #[vars.transactionId]"/>
         
 		<flow-ref doc:name="Flow Reference to Call Weather" doc:id="cd9f5902-30d3-46db-a4e6-ddf02bec123f" name="weather-implementationSub_Flow"/>
-		<logger level="INFO" doc:name="Response Logger for weather sapi for Weather " doc:id="db7bc725-0ea1-44e6-be80-fe0d348ace6c" message="Response Logger for weather sapi for Weather "/>
+		<logger level="INFO" doc:name="Response Logger for weather sapi for Weather " doc:id="db7bc725-0ea1-44e6-be80-fe0d348ace6c" message="Response Logger for weather sapi for Weather  and for Transaction ID: #[vars.transactionId]"/>
 		
 		<error-handler ref="global-app-error_Handler" />
     </flow>

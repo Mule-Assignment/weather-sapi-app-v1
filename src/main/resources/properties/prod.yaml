@@ -1,0 +1,23 @@
+http:
+  host: "0.0.0.0"
+  port: "8081"
+  
+postal: 
+  host: "ipapi.co"
+  port: ""
+  postalpath: "/{ipAddress}/json/"
+  
+weather: 
+  host: "api.weatherapi.com"
+  port: ""
+  weatherPath: "/v1/forecast.json"
+  days: "1"
+  key: "45fcfe97d6d04ef5806205454221503"
+  
+fileList:
+  host: "www.googleapis.com"
+  fileListpath: "/drive/v3/files"
+fileContent:
+  host: "www.googleapis.com"
+  fileContentpath: "/drive/v3/files/1asPvdHa0ZhR-Vjdylz98_R751fYSJ1uK?alt=media"  
+  
