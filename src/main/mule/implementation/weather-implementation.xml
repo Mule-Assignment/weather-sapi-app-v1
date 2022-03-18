@@ -24,7 +24,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 }]]]></http:query-params>
 		</http:request>
 		<logger level="INFO" doc:name="Response Logger for Weather" doc:id="252635f9-6a65-4f61-810f-280942a55732" message="Response from Weather API  and for Transaction ID: #[vars.transactionId]" />
-		<ee:transform>
+		<ee:transform doc:name="Transform Message from Wather API">
             <ee:message>
                 <ee:set-payload><![CDATA[%dw 2.0
 output application/json

@@ -19,7 +19,7 @@ http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/
 }]]]></http:headers>
 		</http:request>
 		<logger level="INFO" doc:name="Response Logger for File List" doc:id="252635f9-6a65-4f61-810f-280942a55732" message="Response from FileList  and for Transaction ID: #[vars.transactionId]" />
-		<ee:transform doc:name="Response from Ip api" doc:id="0afa9bf7-8579-4a10-945c-4263a42bc786" >
+		<ee:transform doc:name="Response from FileList" doc:id="0afa9bf7-8579-4a10-945c-4263a42bc786" >
 			<ee:message >
 				<ee:set-payload ><![CDATA[%dw 2.0
 output application/json
