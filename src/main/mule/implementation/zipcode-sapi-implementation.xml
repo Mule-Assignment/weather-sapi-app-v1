@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
+	
+	<sub-flow name="zipcode-sapi-implementation_Sub_Flow" doc:id="e67beea4-4a91-44c3-b7e7-768afbf509da" >
+		<logger level="INFO" doc:name="Logger" doc:id="f0b3f539-a569-4bcf-9046-564cd4e799a2" />
+		<http:request method="GET" doc:name="Request" doc:id="ec52da0d-f369-4642-b407-c64f9971d2fe" path="${zipcode.path}" config-ref="HTTP_Request_configuration_Zipcode">
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"transactionId" : vars.transactionId
+}]]]></http:headers>
+			<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"state" : vars.state,
+	"country" : p('zipcode.country'),
+	"key" : p('zipcode.apiKey')
+}]]]></http:query-params>
+		</http:request>
+		<logger level="INFO" doc:name="Logger" doc:id="e7eb1dfb-7b70-4f99-b55d-b085cb54b808" />
+	</sub-flow>
+</mule>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:tls="http://www.mulesoft.org/schema/mule/tls" xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd
+http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd">
+	
+	<sub-flow name="update-file-content-implementationSub_Flow" doc:id="eadeaf01-8051-4a45-8335-0766611c4864" >
+		<logger level="INFO" doc:name="Logger" doc:id="856516e2-b2aa-43cf-b997-79e028a2c8e2" />
+		<http:request method="PUT" doc:name="Request" doc:id="8f93247c-cf5d-4802-9329-22caec034a86" path="${updateFileContent.fileContentpath}" config-ref="HTTP_Request_configuration_UpdateFileContent">
+			<http:headers ><![CDATA[#[output application/java
+---
+{
+	"mimeType" : "text/csv",
+	"Content-Type" : "text/csv",
+	"transactionId" : vars.transactionId,
+	"authorization" : vars.authorization
+}]]]></http:headers>
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	"fileId" : vars.fileId
+}]]]></http:uri-params>
+			<http:query-params ><![CDATA[#[output application/java
+---
+{
+	"convert" : "true",
+	"type" : "media"
+}]]]></http:query-params>
+		</http:request>
+		<logger level="INFO" doc:name="Logger" doc:id="daaca7f9-07e6-48be-bb20-18056bbdc789" />
+		<ee:transform doc:name="Transform Message" doc:id="45a8c10f-5afd-455a-aebf-5a935d4c0564" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/java
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</sub-flow>
+</mule>

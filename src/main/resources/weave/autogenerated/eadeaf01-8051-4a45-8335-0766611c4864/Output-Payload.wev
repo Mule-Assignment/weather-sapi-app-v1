@@ -1,0 +1,4 @@
+%dw 2.0
+
+type auto_eadeaf01_8051_4a45_8335_0766611c4864_Output_Payload = Any
+

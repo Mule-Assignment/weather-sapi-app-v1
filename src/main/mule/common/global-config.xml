@@ -1,36 +1,93 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mule xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
+<mule
+	xmlns:apikit="http://www.mulesoft.org/schema/mule/mule-apikit"
 	xmlns:tls="http://www.mulesoft.org/schema/mule/tls"
 	xmlns:http="http://www.mulesoft.org/schema/mule/http"
-	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
 http://www.mulesoft.org/schema/mule/mule-apikit http://www.mulesoft.org/schema/mule/mule-apikit/current/mule-apikit.xsd 
 http://www.mulesoft.org/schema/mule/tls http://www.mulesoft.org/schema/mule/tls/current/mule-tls.xsd 
 http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd">
-	<global-property doc:name="Global Property" doc:id="41e42023-d305-40cf-9c34-92e393d634d1" name="env" value="local" />
-	<configuration-properties doc:name="Configuration properties" doc:id="f23da13b-8cd4-4216-b6c5-258297cbccfe" file="properties/${env}.yaml" />
-	<http:request-config name="HTTP_Request_configuration-fileList" doc:name="HTTP Request configuration" doc:id="824ab4bb-22d8-42f8-a846-8622c66dc261" >
-		<http:request-connection host="${fileList.host}" protocol="HTTPS"/>
+	<global-property doc:name="Global Property"
+		doc:id="41e42023-d305-40cf-9c34-92e393d634d1" name="env" value="local" />
+	<configuration-properties
+		doc:name="Configuration properties"
+		doc:id="f23da13b-8cd4-4216-b6c5-258297cbccfe"
+		file="properties/${env}.yaml" />
+	<http:request-config
+		name="HTTP_Request_configuration-fileList"
+		doc:name="HTTP Request configuration"
+		doc:id="824ab4bb-22d8-42f8-a846-8622c66dc261">
+		<http:request-connection
+			host="${fileList.host}" protocol="HTTPS" />
 	</http:request-config>
-	<http:request-config name="HTTP_Request_configuration-fileContent" doc:name="HTTP Request configuration" doc:id="ea86a04b-533a-41e8-af4b-aab5330defe3" >
-		<http:request-connection host="${fileContent.host}" protocol="HTTPS"/>
+	<http:request-config
+		name="HTTP_Request_configuration-fileContent"
+		doc:name="HTTP Request configuration"
+		doc:id="ea86a04b-533a-41e8-af4b-aab5330defe3">
+		<http:request-connection
+			host="${fileContent.host}" protocol="HTTPS" />
 	</http:request-config>
-	<http:listener-config name="weather-sapi-api-httpListenerConfig">
-        <http:listener-connection host="${http.host}" port="${http.port}" />
-    </http:listener-config>
-        <apikit:config name="weather-sapi-api-config" api="weather-sapi-api.raml" outboundHeadersMapName="outboundHeaders" httpStatusVarName="httpStatus" />
-      <http:request-config name="HTTP_Request_configuration_postal" doc:name="HTTP Request configuration" doc:id="de712e48-10cd-441d-a0a9-14818fa60235" >
-		<http:request-connection protocol="HTTPS" host="${postal.host}" port="${postal.port}" >
-			<tls:context >
+	<http:request-config
+		name="HTTP_Request_configuration_UpdateFileContent"
+		doc:name="HTTP Request configuration"
+		doc:id="6c08e699-1848-46af-86d3-ebf034514fe1">
+		<http:request-connection protocol="HTTPS"
+			host="${updateFileContent.host}">
+			<tls:context>
 				<tls:trust-store insecure="true" />
 			</tls:context>
 		</http:request-connection>
 	</http:request-config>
-	<http:request-config name="HTTP_Request_configuration_weather" doc:name="HTTP Request configuration" doc:id="e9832f0d-0e57-43b6-85d5-917e07250f46" >
-		<http:request-connection host="${weather.host}" port="${weather.port}" />
-	</http:request-config>  
-
-
+	<http:listener-config
+		name="weather-sapi-api-httpListenerConfig">
+		<http:listener-connection host="${http.host}"
+			port="${http.port}" />
+	</http:listener-config>
+	<apikit:config name="weather-sapi-api-config"
+		api="weather-sapi-api.raml" outboundHeadersMapName="outboundHeaders"
+		httpStatusVarName="httpStatus" />
+	<http:request-config
+		name="HTTP_Request_configuration_postal"
+		doc:name="HTTP Request configuration"
+		doc:id="de712e48-10cd-441d-a0a9-14818fa60235">
+		<http:request-connection protocol="HTTPS"
+			host="${postal.host}" port="${postal.port}">
+			<tls:context>
+				<tls:trust-store insecure="true" />
+			</tls:context>
+		</http:request-connection>
+	</http:request-config>
+	<http:request-config
+		name="HTTP_Request_configuration_weather"
+		doc:name="HTTP Request configuration"
+		doc:id="e9832f0d-0e57-43b6-85d5-917e07250f46">
+		<http:request-connection
+			host="${weather.host}" port="${weather.port}" />
+	</http:request-config>
+	<http:request-config
+		name="HTTP_Request_configuration_State"
+		doc:name="HTTP Request configuration"
+		doc:id="bfef0f7c-bf0a-45fc-9fcc-a9d8aaaf6112">
+		<http:request-connection protocol="HTTPS"
+			host="${listOfStates.host}">
+			<tls:context>
+				<tls:trust-store insecure="true" />
+			</tls:context>
+		</http:request-connection>
+	</http:request-config>
+	<http:request-config
+		name="HTTP_Request_configuration_Zipcode"
+		doc:name="HTTP Request configuration"
+		doc:id="0ba9c2f4-a483-4687-b2f1-efe70f828e08">
+		<http:request-connection protocol="HTTPS"
+			host="${zipcode.host}">
+			<tls:context>
+				<tls:trust-store insecure="true" />
+			</tls:context>
+		</http:request-connection>
+	</http:request-config>
 </mule>

@@ -76,18 +76,60 @@
 		
 		<error-handler ref="global-app-error_Handler" />
     </flow>
+    <flow name="put:\fileContent\(fileId):weather-sapi-api-config" doc:id="191611a2-610e-4aaf-bc0f-d37151283e6b">
+		<ee:transform doc:name="Initialize Transform Message">
+            <ee:variables>
+				<ee:set-variable variableName="authorization"><![CDATA[attributes.headers.'authorization']]></ee:set-variable>
+				<ee:set-variable variableName="fileId" ><![CDATA[attributes.uriParams.'fileId']]></ee:set-variable>
+            	<ee:set-variable variableName="transactionId" ><![CDATA[attributes.headers.'transactionId']]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <logger level="INFO" doc:name="Request Logger for weather sapi for File Content" doc:id="6846f547-565b-4a75-a906-52010c8618b2" message="Request Logger for weather sapi for File Content  and for Transaction ID: #[vars.transactionId]"/>
+        
+		<flow-ref doc:name="Flow Reference Field Content" doc:id="b16eaa9a-25ed-4f7a-bfdd-ad880358905e" name="update-file-content-implementationSub_Flow"/>
+		<logger level="INFO" doc:name="Reponse Logger for weather sapi for File Content" doc:id="335d5d23-19ca-4c12-a44d-fc37be09797d" message="Reponse Logger for weather sapi for File Content  and for Transaction ID: #[vars.transactionId]"/>
+		
+		<error-handler ref="global-app-error_Handler" />
+    </flow>
      <flow name="get:\weather:weather-sapi-api-config" doc:id="ad21260b-3aa5-439e-800b-4e334c366a6c">
 		<ee:transform doc:id="3d1eb7be-5891-45bc-8e88-24250c52a6a8" doc:name="Initialize Transform Message">
             <ee:variables>
 				<ee:set-variable variableName="postalCode"><![CDATA[attributes.queryParams.'postalCode']]></ee:set-variable>
             	<ee:set-variable variableName="transactionId" ><![CDATA[attributes.headers.'transactionId']]></ee:set-variable>
-            
             </ee:variables>
         </ee:transform>
         <logger level="INFO" doc:name="Request Logger for weather sapi for Weather" doc:id="63ab943c-561b-45d3-bdbe-28539f47a077" message="Request Logger for weather sapi for Weather  and for Transaction ID: #[vars.transactionId]"/>
         
 		<flow-ref doc:name="Flow Reference to Call Weather" doc:id="cd9f5902-30d3-46db-a4e6-ddf02bec123f" name="weather-implementationSub_Flow"/>
 		<logger level="INFO" doc:name="Response Logger for weather sapi for Weather " doc:id="db7bc725-0ea1-44e6-be80-fe0d348ace6c" message="Response Logger for weather sapi for Weather  and for Transaction ID: #[vars.transactionId]"/>
+		
+		<error-handler ref="global-app-error_Handler" />
+    </flow>
+     <flow name="get:\zipcode\(state):weather-sapi-api-config" doc:id="2e7b2f5a-b6cf-44fa-b673-797f75ce1356">
+		<ee:transform doc:id="3a958250-e841-4797-a204-d2f41e856798" doc:name="Initialize Transform Message">
+            <ee:variables>
+            	<ee:set-variable variableName="transactionId" ><![CDATA[attributes.headers.'transactionId']]></ee:set-variable>
+				<ee:set-variable variableName="state" ><![CDATA[attributes.uriParams.'state']]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <logger level="INFO" doc:name="Request Logger for weather sapi for ZipCode" doc:id="41e15b0c-cf99-402a-8fa5-fc713b4163f8" message="Request Logger for weather sapi for Weather  and for Transaction ID: #[vars.transactionId]"/>
+        
+		<flow-ref doc:name="Flow Reference to ZipCode SubFlow" doc:id="47461846-1dc8-4222-9a6a-6a2bb1a21fb3" name="zipcode-sapi-implementation_Sub_Flow"/>
+		<logger level="INFO" doc:name="Response Logger for weather sapi for Zipcode" doc:id="b27a1a43-92ed-4ab9-8ee6-61c580debfa6" message="Response Logger for weather sapi for Weather  and for Transaction ID: #[vars.transactionId]"/>
+		
+		<error-handler ref="global-app-error_Handler" />
+    </flow>
+     <flow name="get:\state:weather-sapi-api-config" doc:id="0069a4c6-51f2-429c-bb96-19096ed14c87">
+		<ee:transform doc:id="a19c4e71-4b02-4793-bf6c-8ad2b16e86c6" doc:name="Initialize Transform Message">
+            <ee:variables>
+            	<ee:set-variable variableName="transactionId" ><![CDATA[attributes.headers.'transactionId']]></ee:set-variable>
+				<ee:set-variable variableName="state" ><![CDATA[attributes.uriParams.'state']]></ee:set-variable>
+            </ee:variables>
+        </ee:transform>
+        <logger level="INFO" doc:name="Request Logger for weather sapi for State" doc:id="30628f95-ec23-4031-94b2-1a2e7cb99fb2" message="Request Logger for weather sapi for Weather  and for Transaction ID: #[vars.transactionId]"/>
+        
+		<flow-ref doc:name="Flow Reference to Call State SubFlow" doc:id="e5fbbe95-4647-4f20-a860-6360a0bfd912" name="state-list-sapi-implementation_Sub_Flow"/>
+		<logger level="INFO" doc:name="Response Logger for weather sapi for State" doc:id="952958a1-c854-46f1-8ffc-75ea43e51f30" message="Response Logger for weather sapi for Weather  and for Transaction ID: #[vars.transactionId]"/>
 		
 		<error-handler ref="global-app-error_Handler" />
     </flow>

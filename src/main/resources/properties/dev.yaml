@@ -21,3 +21,10 @@ fileContent:
   host: "www.googleapis.com"
   fileContentpath: "/drive/v3/files/1asPvdHa0ZhR-Vjdylz98_R751fYSJ1uK?alt=media"  
   
+listOfStates:
+  host: "app.zipcodebase.com"
+  listOfStates: "/api/v1/country/province"
+  
+queryParams:
+  apiKey: "47210ca0-a6d9-11ec-964f-5b3972ecec1b"
+  country: "US"
